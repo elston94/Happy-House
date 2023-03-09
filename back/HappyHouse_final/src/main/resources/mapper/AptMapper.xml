@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finalpjt.happyhouse.model.mapper.AptMapper">
+
+	<select id="list" resultType="com.finalpjt.happyhouse.model.dto.AptDto">
+		SELECT NO, DONG, APTNAME, DEALAMOUNT, AREA 
+		FROM HOUSEDEAL
+		ORDER BY NO DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<select id="selectCount" resultType="int">
+		SELECT COUNT(*)
+		FROM HOUSEDEAL
+	</select>
+
+	<select id="detail" resultType="com.finalpjt.happyhouse.model.dto.AptDto">
+		SELECT NO, DONG, APTNAME, CODE, DEALAMOUNT, BUILDYEAR, DEALYEAR, DEALMONTH, DEALDAY, AREA, FLOOR, JIBUN, TYPE, RENTMONEY
+		FROM HOUSEDEAL
+		WHERE NO=#{no}
+	</select>
+	
+	<select id="search" resultType="com.finalpjt.happyhouse.model.dto.AptDto">
+		SELECT NO, DONG, APTNAME, DEALAMOUNT, AREA, JIBUN
+		FROM HOUSEDEAL
+		WHERE ${key} LIKE '%${word}%'
+		ORDER BY NO DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<select id="searchSelectCount" resultType="int">
+		SELECT COUNT(*)
+		FROM HOUSEDEAL
+		WHERE ${key} LIKE '%${word}%'
+	</select>
+	
+
+</mapper>

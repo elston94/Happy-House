@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finalpjt.happyhouse.model.mapper.UserMapper">
+
+	<select id="login" resultType="com.finalpjt.happyhouse.model.dto.UserDto">
+		select id,name,pwd,email
+		from user_tb
+		where id=#{id} and pwd=#{pwd}
+	</select>
+
+	<insert id="join">
+		insert into user_tb(id,name,pwd,email)
+		values(#{id},#{name},#{pwd},#{email}) 
+	</insert>
+
+	<update id="update">
+		update user_tb
+		set pwd=#{pwd},name=#{name},email=#{email}
+		where id=#{id}
+	</update>
+
+	<delete id="delete">
+		delete
+		from user_tb
+		where id=#{id}
+	</delete>
+	
+	<select id="detail" resultType="com.finalpjt.happyhouse.model.dto.UserDto">
+		select id,name,pwd,email
+		from user_tb
+		where id=#{id}
+	</select>
+
+	<!-- 비밀번호 변경 -->
+	<update id="updatePwd" parameterType="com.finalpjt.happyhouse.model.dto.UserDto">
+		update user_tb set pwd = #{pwd} where id = #{id}
+	</update>
+	
+	<select id="getUser" resultType="com.finalpjt.happyhouse.model.dto.UserDto">
+		select pwd,name,email,id
+		from user_tb
+		where id=#{id}
+	</select>
+</mapper>

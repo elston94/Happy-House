@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finalpjt.happyhouse.model.mapper.AptRentMapper">
+
+	<insert id="insert" parameterType="com.finalpjt.happyhouse.model.dto.AptRentDto">
+		insert into rentdeal(dong, aptname, code, deposit, buildyear, dealyear, dealmonth, dealday, area, floor, jibun, rentmoney)
+		values(#{dong}, #{aptName}, #{code}, #{deposit}, #{buildYear}, #{dealYear}, #{dealMonth}, #{dealDay}, #{area}, #{floor}, #{jibun}, #{rentMoney})
+	</insert>
+
+	<select id="list" resultType="com.finalpjt.happyhouse.model.dto.AptRentDto">
+		SELECT NO, DONG, APTNAME, deposit, AREA, rentmoney 
+		FROM RENTDEAL
+		ORDER BY NO DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<select id="selectCount" resultType="int">
+		SELECT COUNT(*)
+		FROM RENTDEAL
+	</select>
+
+	<select id="detail" resultType="com.finalpjt.happyhouse.model.dto.AptRentDto">
+		SELECT NO, DONG, APTNAME, CODE, deposit, BUILDYEAR, DEALYEAR, DEALMONTH, DEALDAY, AREA, FLOOR, JIBUN, RENTMONEY
+		FROM RENTDEAL
+		WHERE NO=#{no}
+	</select>
+	
+	<select id="search" resultType="com.finalpjt.happyhouse.model.dto.AptRentDto">
+		SELECT NO, DONG, APTNAME, deposit, AREA, JIBUN, rentmoney
+		FROM RENTDEAL
+		WHERE ${key} LIKE '%${word}%'
+		ORDER BY NO DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<select id="searchSelectCount" resultType="int">
+		SELECT COUNT(*)
+		FROM RENTDEAL
+		WHERE ${key} LIKE '%${word}%'
+	</select>
+
+</mapper>

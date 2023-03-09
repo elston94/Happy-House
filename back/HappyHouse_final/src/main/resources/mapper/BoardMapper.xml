@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.finalpjt.happyhouse.model.mapper.BoardMapper">
+
+	<select id="list" resultType="com.finalpjt.happyhouse.model.dto.BoardDto">
+		SELECT BNUM, BTITLE, BWRITER, BREGDATE 
+		FROM BOARD_TB 
+		ORDER BY BNUM DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<select id="homelist" resultType="com.finalpjt.happyhouse.model.dto.BoardDto">
+		SELECT BNUM, BTITLE, BWRITER, BREGDATE 
+		FROM BOARD_TB
+		ORDER BY BNUM DESC LIMIT 5
+	</select>
+	
+	<select id="selectCount" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD_TB
+	</select>
+
+	<select id="detail" resultType="com.finalpjt.happyhouse.model.dto.BoardDto">
+		SELECT BNUM, BTITLE, BWRITER,BCONTENT,BREGDATE
+		FROM BOARD_TB
+		WHERE BNUM=#{bnum}
+	</select>
+	
+	<select id="search" resultType="com.finalpjt.happyhouse.model.dto.BoardDto">
+		SELECT BNUM, BTITLE, BWRITER, BREGDATE 
+		FROM BOARD_TB
+		WHERE ${key} LIKE '%${word}%'
+		ORDER BY BNUM DESC LIMIT #{startRow},#{count}
+	</select>
+	
+	<select id="searchSelectCount" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD_TB
+		WHERE ${key} LIKE '%${word}%'
+	</select>
+	
+	<insert id="write" parameterType="com.finalpjt.happyhouse.model.dto.BoardDto">
+		INSERT INTO BOARD_TB(BTITLE, BWRITER, BCONTENT)
+		VALUES(#{btitle},#{bwriter},#{bcontent})
+	</insert>
+	
+	<update id="update" parameterType="com.finalpjt.happyhouse.model.dto.BoardDto">
+		UPDATE BOARD_TB
+		SET BTITLE=#{btitle}, BCONTENT=#{bcontent}, BWRITER=#{bwriter}
+		WHERE BNUM=#{bnum}
+	</update>
+	<delete id="delete">
+		DELETE
+		FROM BOARD_TB
+		WHERE BNUM=#{bnum}
+	</delete>
+</mapper>
